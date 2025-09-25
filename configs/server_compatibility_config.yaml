@@ -1,0 +1,219 @@
+# 服务器兼容性配置文件
+# 确保本地开发的功能与服务器环境兼容
+
+# 基础环境配置
+environment:
+  python_version: "3.10"
+  pytorch_version: "2.0.0"
+  cuda_version: "11.8"
+  device_preference: "cuda"  # 服务器优先使用CUDA
+  
+# 多智能体配置
+multi_agent:
+  enable_gpu_acceleration: true
+  max_agents: 10
+  memory_limit: "8GB"
+  processing_timeout: 300  # 5分钟
+  
+# 通信配置
+communication:
+  t2mac:
+    max_communication_rounds: 5
+    communication_threshold: 0.7
+    adaptation_rate: 0.1
+    enable_parallel_communication: true
+    max_parallel_rounds: 3
+  
+  llm:
+    model_path: "Qwen/Qwen2.5-7B-Instruct"
+    device: "cuda"
+    max_length: 2048
+    temperature: 0.7
+    batch_size: 4
+    enable_model_caching: true
+
+# 联邦学习配置
+federated_learning:
+  num_clients: 5
+  num_rounds: 20
+  local_epochs: 10
+  learning_rate: 0.01
+  aggregation_method: "fedavg"
+  client_selection_ratio: 0.8
+  enable_secure_aggregation: true
+  
+  # 服务器特定配置
+  server_specific:
+    enable_distributed_training: true
+    max_concurrent_clients: 3
+    model_checkpoint_interval: 5
+    enable_model_compression: true
+    compression_ratio: 0.5
+
+# 隐私保护配置
+privacy:
+  differential_privacy:
+    epsilon: 1.0
+    delta: 1e-5
+    mechanism: "gaussian"
+    sensitivity: 1.0
+    enable_privacy_budget_tracking: true
+    
+  # 服务器特定隐私配置
+  server_privacy:
+    enable_secure_multiparty_computation: false
+    enable_homomorphic_encryption: false
+    privacy_audit_logging: true
+    data_anonymization: true
+
+# 性能优化配置
+performance:
+  # 内存管理
+  memory_management:
+    enable_memory_pooling: true
+    max_memory_usage: "16GB"
+    garbage_collection_interval: 100
+    
+  # 计算优化
+  computation:
+    enable_mixed_precision: true
+    enable_gradient_accumulation: true
+    gradient_accumulation_steps: 4
+    enable_dynamic_batching: true
+    
+  # 通信优化
+  communication_optimization:
+    enable_compression: true
+    compression_algorithm: "gzip"
+    enable_async_communication: true
+    max_async_operations: 10
+
+# 监控和日志配置
+monitoring:
+  enable_metrics_collection: true
+  metrics_interval: 10  # 秒
+  enable_performance_profiling: true
+  enable_memory_profiling: true
+  
+  logging:
+    log_level: "INFO"
+    log_file: "/tmp/federated_learning.log"
+    max_log_size: "100MB"
+    log_rotation: true
+
+# 错误处理和恢复
+error_handling:
+  max_retry_attempts: 3
+  retry_delay: 5  # 秒
+  enable_graceful_degradation: true
+  enable_circuit_breaker: true
+  
+  recovery:
+    enable_checkpoint_recovery: true
+    checkpoint_interval: 10  # 轮次
+    enable_automatic_restart: true
+
+# 数据管理
+data_management:
+  enable_data_validation: true
+  enable_data_encryption: true
+  max_data_size: "1GB"
+  data_retention_days: 30
+  
+  preprocessing:
+    enable_data_normalization: true
+    enable_data_augmentation: true
+    augmentation_factor: 1.5
+
+# 安全配置
+security:
+  enable_authentication: true
+  enable_authorization: true
+  enable_encryption: true
+  encryption_algorithm: "AES-256"
+  
+  network_security:
+    enable_ssl: true
+    ssl_cert_path: "/etc/ssl/certs/server.crt"
+    ssl_key_path: "/etc/ssl/private/server.key"
+    enable_firewall: true
+
+# 实验配置
+experiment:
+  enable_experiment_tracking: true
+  experiment_name: "federated_anomaly_detection"
+  enable_hyperparameter_tuning: true
+  enable_ablation_studies: true
+  
+  # 服务器实验配置
+  server_experiments:
+    enable_large_scale_testing: true
+    max_concurrent_experiments: 2
+    enable_resource_monitoring: true
+    enable_auto_scaling: true
+
+# 部署配置
+deployment:
+  # 容器化配置
+  container:
+    base_image: "pytorch/pytorch:2.0.0-cuda11.8-cudnn8-devel"
+    enable_gpu_support: true
+    memory_limit: "16Gi"
+    cpu_limit: "8"
+    
+  # 服务配置
+  service:
+    port: 8080
+    host: "0.0.0.0"
+    enable_health_check: true
+    health_check_interval: 30
+    
+  # 扩展配置
+  scaling:
+    enable_horizontal_scaling: true
+    min_replicas: 1
+    max_replicas: 5
+    target_cpu_utilization: 70
+    target_memory_utilization: 80
+
+# 兼容性检查
+compatibility:
+  # 版本兼容性
+  version_requirements:
+    python: ">=3.8,<3.11"
+    pytorch: ">=1.12.0,<3.0.0"
+    numpy: ">=1.21.0,<2.0.0"
+    scikit_learn: ">=1.0.0"
+    
+  # 硬件兼容性
+  hardware_requirements:
+    min_memory: "8GB"
+    min_cpu_cores: 4
+    gpu_requirements:
+      min_memory: "4GB"
+      compute_capability: ">=6.0"
+    
+  # 软件兼容性
+  software_requirements:
+    operating_system: ["linux", "ubuntu"]
+    cuda_driver: ">=11.0"
+    cudnn: ">=8.0"
+    nccl: ">=2.8.0"
+
+# 测试配置
+testing:
+  enable_unit_tests: true
+  enable_integration_tests: true
+  enable_performance_tests: true
+  
+  test_data:
+    enable_synthetic_data: true
+    synthetic_data_size: 1000
+    enable_real_data_testing: true
+    
+  # 服务器测试配置
+  server_testing:
+    enable_load_testing: true
+    max_concurrent_users: 10
+    test_duration: 3600  # 1小时
+    enable_stress_testing: true
